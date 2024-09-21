@@ -58,7 +58,7 @@ void chain::AddBack (const symbol& new_symbol) {
  * @return bool-type
  */
 bool chain::operator<(const chain& chain) const {
-  return chain_ < chain.getChain(); // Compara los vectores
+  return chain_ < chain.getChain(); 
 }
 
 /**

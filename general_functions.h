@@ -9,13 +9,14 @@
 ** Correo: alu0101469348@ull.edu.es
 ** Fecha: 20/09/2024
 
-** Archivo help_functions.h: Archivo de cabecera con las funciones de ayuda
+** Archivo general_functions.h: Archivo de cabecera con las funciones de ayuda
 **      
 ** Referencias:
 **      Enlaces de interes
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      21/09/2024 - Adición de las funciones de lectura y escritura
 **/
 
 #ifndef GENERAL_FUNCTIONS_H
@@ -31,7 +32,6 @@
 void Usage();
 void Help ();
 void Read (const std::string&, std::vector<chain>&, std::vector<alphabet>&);
-void Write(const std::string& out_file, const std::vector<language>& to_write);
 void Write(const std::string& out_file, const std::vector<alphabet>& to_write);
 void WriteChainSize(const std::string& out_file, const std::vector<chain>& to_write);
 void WriteInverse(const std::string& out_file, const std::vector<chain>& to_write);

@@ -16,6 +16,7 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      21/09/2024 - Adición de las funciones de lectura y escritura
 **/
 
 #include <iostream>
@@ -28,25 +29,25 @@
  * @brief Prints how to use the client program
  */
 void Usage() {
-  std::cout << "Modo de empleo: ./cya-P02-strings filein.txt fileout.txt opcode\n"
-            << "Pruebe 'cya-P02-strings --help' para más información\n";
+  std::cout << "How to use: ./cya-P02-strings filein.txt fileout.txt opcode\n"
+            << "Try 'cya-P02-strings --help' for further information\n";
 }
 
 /**
  * @brief Brings help if "./cya-P02-strings --help" is typed
  */
 void Help () {
-    std::cout << "./cya-P02-strings -- Cifrado de ficheros\n"
-              << "Modo de uso:     ./cya-P02-strings filein.txt fileout.txt opcode\n"
+    std::cout << "./cya-P02-strings -- Symbols, strings, alphabets and formal languages\n"
+              << "How to use:          ./cya-P02-strings filein.txt fileout.txt opcode\n"
               << "\n"
-              << "filein.txt:      Fichero de entrada\n"
-              << "fileout.txt:     Fichero de salida\n"
-              << "metodo:          Indica la operacion deseada: \n"
-              << "                 1. Alfabeto: Alfabeto asociado a las cadenas de entrada\n"
-              << "                 2. Longitud: Longitud de la cadena entrada\n"
-              << "                 3. Inversa:  Inversa de la cadena de entrada\n"
-              << "                 4. Prefijos: Conjunto de cadenas que son prefijos de la cadena de entrada\n"
-              << "                 5. Sufijos:  Conjunto de cadenas que son sufijos de la cadena de entrada\n"
+              << "filein.txt:      Input file\n"
+              << "fileout.txt:     Output file\n"
+              << "opcode:          Type the wanted opcode: \n"
+              << "                 1. Alphabet: Asociated alphabet to the input chains\n"
+              << "                 2. Size: Size of the input chains\n"
+              << "                 3. Inverse:  Inverse of the input chains\n"
+              << "                 4. Prefixes: Prefix languages by input chains\n"
+              << "                 5. Sufixes:  Sufix languages by input chains\n"
               << "\n";
 }
 
@@ -59,8 +60,8 @@ void Help () {
 void Read (const std::string& in_file, std::vector<chain>& in_chains, std::vector<alphabet>& in_alphabets) {
   std::ifstream input(in_file);
   if (!input) {
-    std::cerr << "Error al abrir el archivo de entrada" << std::endl;
-    return;
+    std::cerr << "Error opening input file" << std::endl;
+    exit(EXIT_FAILURE);
   }
 
   std::string linea;
@@ -89,28 +90,11 @@ void Read (const std::string& in_file, std::vector<chain>& in_chains, std::vecto
   }
 }
 
-
-
-void Write(const std::string& out_file, const std::vector<language>& to_write) {
-  std::ofstream out(out_file);
-
-  if (!out) {
-    std::cerr << "Error opening the file: " << out_file << std::endl;
-    exit(EXIT_FAILURE);
-  }
-
-  for (long unsigned int i {0}; i < to_write.size(); ++i) {
-    out << to_write[i] << "\n"; 
-  }
-
-  if (out.fail()) {
-    std::cerr << "Error writing in the file." << std::endl;
-    exit(EXIT_FAILURE);
-  }
-
-  out.close(); 
-}
-
+/**
+ * @brief Writes an alphabet in an output file
+ * @param string 
+ * @param vector<alphabet>
+ */
 void Write(const std::string& out_file, const std::vector<alphabet>& to_write) {
   std::ofstream out(out_file);
 
@@ -131,6 +115,11 @@ void Write(const std::string& out_file, const std::vector<alphabet>& to_write) {
   out.close(); 
 }
 
+/**
+ * @brief Writes the size of a chain in an output file
+ * @param string 
+ * @param vector<chain>
+ */
 void WriteChainSize(const std::string& out_file, const std::vector<chain>& to_write) {
   std::ofstream out(out_file);
 
@@ -151,6 +140,11 @@ void WriteChainSize(const std::string& out_file, const std::vector<chain>& to_wr
   out.close(); 
 }
 
+/**
+ * @brief Writes the inverse of a chain in an output file
+ * @param string 
+ * @param vector<chain>
+ */
 void WriteInverse(const std::string& out_file, const std::vector<chain>& to_write) {
   std::ofstream out(out_file);
 
@@ -171,7 +165,11 @@ void WriteInverse(const std::string& out_file, const std::vector<chain>& to_writ
   out.close();
 }
 
-
+/**
+ * @brief Writes the prefix language created by a chain in an output file
+ * @param string 
+ * @param vector<chain>
+ */
 void WritePrefixes(const std::string& out_file, const std::vector<chain>& to_write) {
   std::ofstream out(out_file);
   language prefix;
@@ -193,6 +191,11 @@ void WritePrefixes(const std::string& out_file, const std::vector<chain>& to_wri
   out.close();
 }
 
+/**
+ * @brief Writes the sufix language created by a chain in an output file
+ * @param string 
+ * @param vector<chain>
+ */
 void WriteSufixes(const std::string& out_file, const std::vector<chain>& to_write) {
   std::ofstream out(out_file);
   language sufix;

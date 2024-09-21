@@ -10,13 +10,14 @@
 ** Fecha: 20/09/2024
 
 ** Archivo cya-P02-strings.cc: programa cliente.
-**      Contiene la funcion main del proyecto que usa las clases X e Y
-**      para ... (indicar brevemente el objetivo)
+**      Contiene la funcion main del proyecto que usa las clases cadena, alfabeto y lenguaje
+**      para escribir alfabetos, cadenas inversas, longitudes, sufijos y prefijos
 ** Referencias:
 **      Enlaces de interes
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      21/09/2024 - Finalización del código
 **/
  
 #include <iostream>
@@ -63,7 +64,7 @@ int main(int argc, char* argv[]) {
       WriteSufixes(out_file, input_chains);
       break;
     default:
-      std::cerr <<"Parameter not valid. Option must be between 1-5";
+      std::cerr <<"Parameters not valid. Try 'cya-P02-strings --help' for further information" << std::endl;
       exit(EXIT_FAILURE);
   }
   return 0;
