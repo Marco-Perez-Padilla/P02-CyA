@@ -1,3 +1,5 @@
-*.o
-cya-P02-strings
-fileou.txt
+*
+
+!*.cc
+!.h
+!Makefile
