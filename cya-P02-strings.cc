@@ -21,6 +21,7 @@
 **/
  
 #include <iostream>
+#include <cctype> //isdigit()
 
 #include "general_functions.h"
 #include "alphabet.h"
@@ -34,9 +35,10 @@ int main(int argc, char* argv[]) {
     exit(EXIT_SUCCESS);
   }
   
-  if (argc != 4) {
+  std::string opcode = argv[3];
+  if (argc != 4 || !isdigit(opcode[0])) {
     Usage();
-    exit(EXIT_SUCCESS);
+    exit(EXIT_FAILURE);
   }
   
   std::vector<chain> input_chains;
