@@ -17,6 +17,7 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      23/09/2024 - Mejora del operador <<
 **/
 
 #include <iostream>
@@ -50,7 +51,7 @@ language::language(const alphabet& alphabet) {
 const language language::Prefixes (const chain& original_chain) const {
   std::set<chain> all_prefixes;
   const std::vector<symbol>& symbols = original_chain.getChain();
-  for (unsigned int i{0}; i < symbols.size(); ++i) {
+  for (unsigned int i{0}; i <= symbols.size(); ++i) {
     std::vector<symbol> prefix(symbols.begin(), symbols.begin() + i);
     all_prefixes.insert(chain(prefix));
   }
@@ -82,8 +83,8 @@ std::ostream& operator<<(std::ostream& os, const language& lang) {
   int counter {0};
   int language_size = lang.getCardinal();
   const std::set<chain>& languages = lang.getLanguage();
-  os << "{&";
-  for (const chain& chains : languages) {
+  os << "{";
+  for (const auto& chains : languages) {
     os << chains;
     if (counter < language_size - 1) {
       os << ", ";
