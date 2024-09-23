@@ -17,6 +17,7 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      23/09/2024 - Mejora del operador << y adición del método insert
 **/
 
 #ifndef LANGUAGE_H
@@ -41,6 +42,7 @@ class language {
   std::set<chain> getLanguage() const {return language_;}
   const int getCardinal() const {return language_.size();}
   //Functions for Language class
+  void insert(const chain& new_chain);
   const language Prefixes (const chain&) const;
   const language Sufixes (const chain&) const;
 };

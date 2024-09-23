@@ -17,6 +17,7 @@
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
 **      21/09/2024 - Adición de las funciones de lectura y escritura
+**      23/09/2024 - Mejora del control de errores
 **/
 
 #include <iostream>
@@ -65,16 +66,41 @@ void Read (const std::string& in_file, std::vector<chain>& in_chains, std::vecto
   }
 
   std::string linea;
-  while(std::getline(input, linea)) {
-    long unsigned int position = linea.find(' ');
 
-    if (position >= linea.size() || position == 0) {
-      std::cerr << "Incorrect input format" << std::endl;
-      exit(EXIT_FAILURE);
+  while(std::getline(input, linea)) {
+    int counter {0};
+    for (char chr : linea) {
+      if (chr == ' ') {
+        ++counter;
+      }
     }
 
+    //Checks for inexistant space
+    long unsigned int position = linea.find(' ');
+
+    if (position >= linea.size()) {
+      std::cerr << "Fatal error: Alphabet cannot be empty. Try 'cya-P02-strings --help' for further information" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+    
+    //Checks for more than one space in same line
+    if (counter != 1) {
+      std::cerr << "Incorrect input format: More than one space in same line. Try 'cya-P02-strings --help' for further information" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+    //Substraction of the chain and the alphabet
     std::string cadena = linea.substr(0, position);
     std::string alfabeto = linea.substr(position + 1);
+
+    //Checks for duplicate characters in alphabet
+    for (long unsigned int i {0}; i < alfabeto.size(); ++i) {
+      for (long unsigned int j {i + 1}; j < alfabeto.size(); ++j) {
+        if (alfabeto[i] == alfabeto[j]) {
+          std::cerr << "Incorrect input format: Duplicate characters in alphabet" << std::endl;
+          exit(EXIT_FAILURE);
+        }
+      }
+    }
 
     chain final_chain;
     for (const char& character : cadena) {
@@ -104,7 +130,11 @@ void Write(const std::string& out_file, const std::vector<alphabet>& to_write) {
   }
 
   for (long unsigned int i {0}; i < to_write.size(); ++i) {
-    out << to_write[i] << "\n"; 
+    if (to_write[i].Empty()) {
+      std::cerr << "Fatal error: Alphabet cannot be empty" << std::endl;
+    } else {
+      out << to_write[i] << "\n"; 
+    }
   }
 
   if (out.fail()) {

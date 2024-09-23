@@ -17,6 +17,7 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      23/09/2024 - Adición del método empty
 **/
 
 #ifndef CHAIN_H
@@ -40,6 +41,7 @@ class chain {
   const int ChainSize() const;
   const chain Inverse () const;
   void AddBack (const symbol& new_symbol);
+  bool Empty() const;
   //Overload of operators
   bool operator<(const chain&) const;
   bool operator==(const chain&) const;

@@ -17,7 +17,7 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
-**      23/09/2024 - Mejora del operador <<
+**      23/09/2024 - Mejora del operador << y adición del método insert
 **/
 
 #include <iostream>
@@ -44,12 +44,20 @@ language::language(const alphabet& alphabet) {
 }
 
 /**
+ * @brief Insert method to add a chain to the language
+ * @param chain object
+ */
+void language::insert(const chain& new_chain) {
+  language_.insert(new_chain);
+}
+
+/**
  * @brief Generation of prefixes language using subvectors
  * @param Chain 
  * @return Prefixes language
  */
 const language language::Prefixes (const chain& original_chain) const {
-  std::set<chain> all_prefixes;
+  language all_prefixes;
   const std::vector<symbol>& symbols = original_chain.getChain();
   for (unsigned int i{0}; i <= symbols.size(); ++i) {
     std::vector<symbol> prefix(symbols.begin(), symbols.begin() + i);
@@ -64,7 +72,7 @@ const language language::Prefixes (const chain& original_chain) const {
  * @return Sufixes language
  */
 const language language::Sufixes (const chain& original_chain) const {
-  std::set<chain> all_sufixes;  
+  language all_sufixes;  
   const std::vector<symbol>& symbols = original_chain.getChain();
   for (size_t i = 0; i <= symbols.size(); ++i) {
     std::vector<symbol> sufix(symbols.begin() + i, symbols.end()); 
@@ -80,16 +88,18 @@ const language language::Sufixes (const chain& original_chain) const {
  * @return ostream
  */
 std::ostream& operator<<(std::ostream& os, const language& lang) {
-  int counter {0};
-  int language_size = lang.getCardinal();
   const std::set<chain>& languages = lang.getLanguage();
   os << "{";
+  bool first = true;
   for (const auto& chains : languages) {
-    os << chains;
-    if (counter < language_size - 1) {
-      os << ", ";
+    if (!chains.Empty()) {
+      if (first) {
+        os << chains;
+        first = false;
+      } else {
+        os << ", " << chains;
+      }
     }
-    ++counter;
   }
   os << "}";
   return os;

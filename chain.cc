@@ -17,6 +17,7 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      23/09/2024 - Adición del método empty
 **/
 
 #include <algorithm>
@@ -50,6 +51,14 @@ const chain chain::Inverse () const {
  */
 void chain::AddBack (const symbol& new_symbol) {
   chain_.push_back(new_symbol);
+}
+
+/**
+ * @brief Empty method to see if a chain is empty
+ * @return bool-type
+ */
+bool chain::Empty() const {
+    return chain_.empty();
 }
 
 /**

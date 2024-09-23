@@ -17,10 +17,16 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      23/09/2024 - Adición del método empty
 **/
 
 #include <iostream>
 #include "alphabet.h"
+
+
+bool alphabet::Empty() const {
+  return symbols_.empty();
+}
 
 /**
  * @brief Function to add a symbol to an alphabet

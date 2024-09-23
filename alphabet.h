@@ -17,6 +17,7 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      23/09/2024 - Adición del método empty
 **/
 
 #ifndef ALPHABET_H
@@ -35,6 +36,7 @@ class alphabet {
   alphabet (const std::set<symbol>& symbols) : symbols_(symbols) {}  //Constructor
   const std::set<symbol>& getSymbols () const {return symbols_;} //Getter
 
+  bool Empty() const;
   void AddSymbol (const symbol&); //Function to add symbols to the alphabet
 };
 std::ostream& operator<<(std::ostream& os, const alphabet&); //Overload of out stream operator for alphabet class
