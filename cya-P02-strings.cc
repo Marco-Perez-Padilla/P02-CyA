@@ -17,7 +17,8 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
-**      21/09/2024 - Finalización del código
+**      21/09/2024 - Segunda versión del código
+**      24/09/2024 - Manejo de casos en donde el alfabeto no se corresponde a la cadena
 **/
  
 #include <iostream>
@@ -35,12 +36,17 @@ int main(int argc, char* argv[]) {
     exit(EXIT_SUCCESS);
   }
   
-  std::string opcode = argv[3];
-  if (argc != 4 || !isdigit(opcode[0])) {
+  if (argc != 4) {
     Usage();
     exit(EXIT_FAILURE);
   }
-  
+
+  std::string opcode = argv[3];
+
+  if (!isdigit(opcode[0])) {
+    Usage();
+    exit(EXIT_FAILURE);
+  }
   std::vector<chain> input_chains;
   std::vector<alphabet> input_alphabets;
   

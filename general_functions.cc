@@ -18,6 +18,7 @@
 **      20/09/2024 - Creacion (primera version) del codigo
 **      21/09/2024 - Adición de las funciones de lectura y escritura
 **      23/09/2024 - Mejora del control de errores
+**      24/09/2024 - Manejo de casos en donde el alfabeto no se corresponde a la cadena
 **/
 
 #include <iostream>
@@ -97,10 +98,24 @@ void Read (const std::string& in_file, std::vector<chain>& in_chains, std::vecto
     for (long unsigned int i {0}; i < alfabeto.size(); ++i) {
       for (long unsigned int j {i + 1}; j < alfabeto.size(); ++j) {
         if (alfabeto[i] == alfabeto[j]) {
-          std::cerr << "Incorrect input format: Duplicate characters in alphabet" << std::endl;
+          std::cerr << "Incorrect input format: Duplicate symbols in alphabet" << std::endl;
           exit(EXIT_FAILURE);
         }
       }
+    }
+
+    bool correct = false;
+    for (long unsigned int i {0}; i < cadena.size(); ++i) {
+      for (long unsigned int j {0}; j < alfabeto.size(); ++j) {
+        if (cadena[i] == alfabeto[j] || cadena[i] == '&') {
+          correct = true;
+        }
+      }
+    }
+
+    if (!correct) {
+      std::cerr << "Incorrect input format: Chain isn't part of given alphabet" << std::endl;
+      exit(EXIT_FAILURE);
     }
 
     chain final_chain;
@@ -132,7 +147,7 @@ void Write(const std::string& out_file, const std::vector<alphabet>& to_write) {
 
   for (long unsigned int i {0}; i < to_write.size(); ++i) {
     if (to_write[i].Empty()) {
-      std::cerr << "Fatal error: Alphabet cannot be empty" << std::endl;
+      std::cerr << "Fatal error in line " << i+1 << " : Alphabet cannot be empty" << std::endl;
     } else {
       out << to_write[i] << "\n"; 
     }

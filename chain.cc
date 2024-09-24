@@ -18,6 +18,7 @@
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
 **      23/09/2024 - Adición del método empty
+**      24/09/2024 - Manejo de casos en donde el alfabeto no se corresponde a la cadena
 **/
 
 #include <algorithm>
@@ -31,7 +32,8 @@
  * @return int size
  */
 const int chain::ChainSize() const {
-  return chain_.size();
+  if (chain_[0].getCharacter() == '&') return 0;
+  else return chain_.size();
 }
 
 /**
