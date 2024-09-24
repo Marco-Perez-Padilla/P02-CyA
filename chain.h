@@ -18,6 +18,7 @@
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
 **      23/09/2024 - Adición del método empty
+**      24/09/2024 - Adición de los métodos prefijos y sufijos 
 **/
 
 #ifndef CHAIN_H
@@ -26,26 +27,29 @@
 #include <vector>
 
 #include "symbol.h"
+#include "language.h"
 
-class chain {
+class Chain {
  private:
-  std::vector<symbol> chain_;
+  std::vector<Symbol> chain_;
 
  public:
   //Constructors
-  chain() = default;
-  chain(const std::vector<symbol>& chain) : chain_(chain) {}   
+  Chain() = default;
+  Chain(const std::vector<Symbol>& chain) : chain_(chain) {}   
   //Getter
-  const std::vector<symbol>& getChain () const {return chain_;} 
+  const std::vector<Symbol>& getChain () const {return chain_;} 
   //Functions for chain class
   const int ChainSize() const;
-  const chain Inverse () const;
-  void AddBack (const symbol& new_symbol);
+  const Chain Inverse () const;
+  void AddBack (const Symbol& new_symbol);
   bool Empty() const;
+  const Language Prefixes () const;
+  const Language Sufixes () const;
   //Overload of operators
-  bool operator<(const chain&) const;
-  bool operator==(const chain&) const;
+  bool operator<(const Chain&) const;
+  bool operator==(const Chain&) const;
 };
-std::ostream& operator<<(std::ostream& os, const chain&);
+std::ostream& operator<<(std::ostream& os, const Chain&);
 
 #endif

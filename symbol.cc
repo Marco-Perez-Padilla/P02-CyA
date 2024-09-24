@@ -17,6 +17,7 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      24/09/2024 - Tratamiento especial de la cadena vacía como longitud 0
 **/
 
 #include <iostream>
@@ -28,8 +29,8 @@
  * @param symbol 
  * @return boolean-type
  */
-bool symbol::operator<(const symbol& character) const {
-  return character_ < character.getCharacter();
+bool Symbol::operator<(const Symbol& character) const {
+  return character_ < character.getSymbol();
 }
 
 /**
@@ -37,8 +38,8 @@ bool symbol::operator<(const symbol& character) const {
  * @param symbol 
  * @return boolean-type
  */
-bool symbol::operator==(const symbol& character) const {
-  return character_ == character.getCharacter();
+bool Symbol::operator==(const Symbol& character) const {
+  return character_ == character.getSymbol();
 }
 
 /**
@@ -47,6 +48,6 @@ bool symbol::operator==(const symbol& character) const {
  * @param symbol
  * @return ostream
  */
-std::ostream& operator<<(std::ostream& os, const symbol& symbol) {
-  return os << symbol.getCharacter();
+std::ostream& operator<<(std::ostream& os, const Symbol& symbol) {
+  return os << symbol.getSymbol();
 }

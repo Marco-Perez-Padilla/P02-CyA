@@ -17,23 +17,24 @@
 
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
+**      24/09/2024 - Tratamiento especial de la cadena vacía como longitud 0
 **/
 
 #ifndef SYMBOL_H
 #define SYMBOL_H
 
-class symbol {
+class Symbol {
  private:
   char character_;
 
  public:
-  symbol (char character) : character_(character) {}; //Constructor for class symbol
-  char getCharacter () const {return character_;} //Getter
+  Symbol (char character) : character_(character) {}; //Constructor for class symbol
+  char getSymbol () const {return character_;} //Getter
 
   //Operators
-  bool operator< (const symbol&) const;
-  bool operator== (const symbol&) const;
+  bool operator< (const Symbol&) const;
+  bool operator== (const Symbol&) const;
 };
-std::ostream& operator<<(std::ostream& os, const symbol&); //Overload of out stream operator for symbol class
+std::ostream& operator<<(std::ostream& os, const Symbol&); //Overload of out stream operator for symbol class
 
 #endif

@@ -18,28 +18,30 @@
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
 **      23/09/2024 - Mejora del operador << y adición del método insert
+**      24/09/2024 - Eliminación de los métodos prefijos y sufijos (ver chain.h)
 **/
 
 #include <iostream>
 
 #include "alphabet.h"
+#include "chain.h"
 #include "language.h"
 
 /**
  * @brief Default constructor for Language class
  */
-language::language() {
-  language_.insert(chain(std::vector<symbol>{('&')}));
+Language::Language() {
+  language_.insert(Chain(std::vector<Symbol>{('&')}));
 }
 
 /**
  * @brief Designed constructor for Language class
  * @param Alphabet object
  */
-language::language(const alphabet& alphabet) {
-  language_.insert(chain(std::vector<symbol>{('&')}));
-  for (const symbol& symbols : alphabet.getSymbols()) {
-    language_.insert(chain(std::vector<symbol>{(symbols)}));
+Language::Language(const Alphabet& alphabet) {
+  language_.insert(Chain(std::vector<Symbol>{('&')}));
+  for (const Symbol& symbols : alphabet.getSymbols()) {
+    language_.insert(Chain(std::vector<Symbol>{(symbols)}));
   }
 }
 
@@ -47,38 +49,8 @@ language::language(const alphabet& alphabet) {
  * @brief Insert method to add a chain to the language
  * @param chain object
  */
-void language::insert(const chain& new_chain) {
+void Language::insert(const Chain& new_chain) {
   language_.insert(new_chain);
-}
-
-/**
- * @brief Generation of prefixes language using subvectors
- * @param Chain 
- * @return Prefixes language
- */
-const language language::Prefixes (const chain& original_chain) const {
-  language all_prefixes;
-  const std::vector<symbol>& symbols = original_chain.getChain();
-  for (unsigned int i{0}; i <= symbols.size(); ++i) {
-    std::vector<symbol> prefix(symbols.begin(), symbols.begin() + i);
-    all_prefixes.insert(chain(prefix));
-  }
-  return all_prefixes;
-}
-
-/**
- * @brief Generation of sufixes language using subvectors
- * @param Chain
- * @return Sufixes language
- */
-const language language::Sufixes (const chain& original_chain) const {
-  language all_sufixes;  
-  const std::vector<symbol>& symbols = original_chain.getChain();
-  for (size_t i = 0; i <= symbols.size(); ++i) {
-    std::vector<symbol> sufix(symbols.begin() + i, symbols.end()); 
-    all_sufixes.insert(chain(sufix));  
-  }
-  return all_sufixes;  
 }
 
 /**
@@ -87,8 +59,8 @@ const language language::Sufixes (const chain& original_chain) const {
  * @param Language
  * @return ostream
  */
-std::ostream& operator<<(std::ostream& os, const language& lang) {
-  const std::set<chain>& languages = lang.getLanguage();
+std::ostream& operator<<(std::ostream& os, const Language& lang) {
+  const std::set<Chain>& languages = lang.getLanguage();
   os << "{";
   bool first = true;
   for (const auto& chains : languages) {

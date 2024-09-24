@@ -27,18 +27,18 @@
 
 #include "symbol.h"
 
-class alphabet {
+class Alphabet {
  private:
-  std::set<symbol>symbols_;
+  std::set<Symbol>symbols_;
 
  public:
-  alphabet() = default;
-  alphabet (const std::set<symbol>& symbols) : symbols_(symbols) {}  //Constructor
-  const std::set<symbol>& getSymbols () const {return symbols_;} //Getter
+  Alphabet() = default;
+  Alphabet (const std::set<Symbol>& symbols) : symbols_(symbols) {}  //Constructor
+  const std::set<Symbol>& getSymbols () const {return symbols_;} //Getter
 
   bool Empty() const;
-  void AddSymbol (const symbol&); //Function to add symbols to the alphabet
+  void AddSymbol (const Symbol&); //Function to add symbols to the alphabet
 };
-std::ostream& operator<<(std::ostream& os, const alphabet&); //Overload of out stream operator for alphabet class
+std::ostream& operator<<(std::ostream& os, const Alphabet&); //Overload of out stream operator for alphabet class
 
 #endif

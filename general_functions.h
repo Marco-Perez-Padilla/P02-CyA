@@ -22,20 +22,7 @@
 #ifndef GENERAL_FUNCTIONS_H
 #define GENERAL_FUNCTIONS_H
 
-#include <string>
-#include <vector>
-
-#include "alphabet.h"
-#include "chain.h"
-#include "language.h"
-
 void Usage();
 void Help ();
-void Read (const std::string&, std::vector<chain>&, std::vector<alphabet>&);
-void Write(const std::string& out_file, const std::vector<alphabet>& to_write);
-void WriteChainSize(const std::string& out_file, const std::vector<chain>& to_write);
-void WriteInverse(const std::string& out_file, const std::vector<chain>& to_write);
-void WritePrefixes(const std::string& out_file, const std::vector<chain>& to_write);
-void WriteSufixes(const std::string& out_file, const std::vector<chain>& to_write);
 
 #endif

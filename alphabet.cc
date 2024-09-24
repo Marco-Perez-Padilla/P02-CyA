@@ -25,7 +25,7 @@
 #include "alphabet.h"
 
 
-bool alphabet::Empty() const {
+bool Alphabet::Empty() const {
   return symbols_.empty();
 }
 
@@ -33,7 +33,7 @@ bool alphabet::Empty() const {
  * @brief Function to add a symbol to an alphabet
  * @param symbol 
  */
-void alphabet::AddSymbol (const symbol& symbol) {
+void Alphabet::AddSymbol (const Symbol& symbol) {
   symbols_.insert(symbol);
 }
 
@@ -43,11 +43,11 @@ void alphabet::AddSymbol (const symbol& symbol) {
  * @param symbol
  * @return ostream
  */
-std::ostream& operator<<(std::ostream& os, const alphabet& symbols)  {
+std::ostream& operator<<(std::ostream& os, const Alphabet& symbols)  {
   int counter {0};
   int alphabet_size = symbols.getSymbols().size();
   os << "{";
-  for (const symbol& symbol : symbols.getSymbols()) {
+  for (const Symbol& symbol : symbols.getSymbols()) {
     os << symbol;
     if (counter < alphabet_size - 1) {
       os << ", ";

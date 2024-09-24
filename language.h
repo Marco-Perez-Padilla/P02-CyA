@@ -18,6 +18,7 @@
 ** Historial de revisiones:
 **      20/09/2024 - Creacion (primera version) del codigo
 **      23/09/2024 - Mejora del operador << y adición del método insert
+**      24/09/2024 - Eliminación de los métodos prefijos y sufijos (ver chain.h)
 **/
 
 #ifndef LANGUAGE_H
@@ -25,27 +26,27 @@
 
 #include <set>
 
-#include "chain.h"
+//Forward declarations to solve circular inclusion
+class Chain;
+class Alphabet;
 
-class language {
+class Language {
  private:
-  std::set<chain> language_;
+  std::set<Chain> language_;
 
  public:
   //Default constructor
-  language();
+  Language();
   //Constructor given an alphabet
-  language(const alphabet& alphabet);
+  Language(const Alphabet& alphabet);
   //Constructor given a specific set of chains
-  language(const std::set<chain>& subset) : language_(subset) {}
+  Language(const std::set<Chain>& subset) : language_(subset) {}
   //Getters
-  std::set<chain> getLanguage() const {return language_;}
+  std::set<Chain> getLanguage() const {return language_;}
   const int getCardinal() const {return language_.size();}
   //Functions for Language class
-  void insert(const chain& new_chain);
-  const language Prefixes (const chain&) const;
-  const language Sufixes (const chain&) const;
+  void insert(const Chain& new_chain);
 };
-std::ostream& operator<<(std::ostream& os, const language&);
+std::ostream& operator<<(std::ostream& os, const Language&);
 
 #endif

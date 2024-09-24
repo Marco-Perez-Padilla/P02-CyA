@@ -19,6 +19,7 @@
 **      20/09/2024 - Creacion (primera version) del codigo
 **      23/09/2024 - Adición del método empty
 **      24/09/2024 - Manejo de casos en donde el alfabeto no se corresponde a la cadena
+**      24/09/2024 - Adición de los métodos prefijos y sufijos 
 **/
 
 #include <algorithm>
@@ -26,13 +27,14 @@
 #include <fstream>
 
 #include "chain.h"
+#include "language.h"
 
 /**
  * @brief Method to get the size of a chain (Longitud)
  * @return int size
  */
-const int chain::ChainSize() const {
-  if (chain_[0].getCharacter() == '&') return 0;
+const int Chain::ChainSize() const {
+  if (chain_[0].getSymbol() == '&') return 0;
   else return chain_.size();
 }
 
@@ -40,8 +42,8 @@ const int chain::ChainSize() const {
  * @brief Method Inverse of a chain object
  * @return chain object. Inverse of invoker chain
  */
-const chain chain::Inverse () const {
-  std::vector<symbol> reversed_chain = chain_;
+const Chain Chain::Inverse () const {
+  std::vector<Symbol> reversed_chain = chain_;
   std::reverse(reversed_chain.begin(), reversed_chain.end());
   return reversed_chain;
 }
@@ -51,7 +53,7 @@ const chain chain::Inverse () const {
  * @param symbol
  * @return Previous chain with the wanted addition
  */
-void chain::AddBack (const symbol& new_symbol) {
+void Chain::AddBack (const Symbol& new_symbol) {
   chain_.push_back(new_symbol);
 }
 
@@ -59,8 +61,38 @@ void chain::AddBack (const symbol& new_symbol) {
  * @brief Empty method to see if a chain is empty
  * @return bool-type
  */
-bool chain::Empty() const {
+bool Chain::Empty() const {
     return chain_.empty();
+}
+
+/**
+ * @brief Generation of prefixes language using subvectors
+ * @param Chain 
+ * @return Prefixes language
+ */
+const Language Chain::Prefixes () const {
+  Language all_prefixes;
+  const std::vector<Symbol>& symbols = chain_;
+  for (unsigned int i{0}; i <= symbols.size(); ++i) {
+    std::vector<Symbol> prefix(symbols.begin(), symbols.begin() + i);
+    all_prefixes.insert(Chain(prefix));
+  }
+  return all_prefixes;
+}
+
+/**
+ * @brief Generation of sufixes language using subvectors
+ * @param Chain
+ * @return Sufixes language
+ */
+const Language Chain::Sufixes () const {
+  Language all_sufixes;  
+  const std::vector<Symbol>& symbols = chain_;
+  for (size_t i = 0; i <= symbols.size(); ++i) {
+    std::vector<Symbol> sufix(symbols.begin() + i, symbols.end()); 
+    all_sufixes.insert(Chain(sufix));  
+  }
+  return all_sufixes;  
 }
 
 /**
@@ -68,7 +100,7 @@ bool chain::Empty() const {
  * @param chain
  * @return bool-type
  */
-bool chain::operator<(const chain& chain) const {
+bool Chain::operator<(const Chain& chain) const {
   return chain_ < chain.getChain(); 
 }
 
@@ -77,7 +109,7 @@ bool chain::operator<(const chain& chain) const {
  * @param chain
  * @return bool-type
  */
-bool chain::operator==(const chain& chain) const {
+bool Chain::operator==(const Chain& chain) const {
   return chain_ == chain.getChain();
 }
 
@@ -87,8 +119,8 @@ bool chain::operator==(const chain& chain) const {
  * @param chain
  * @return ostream
  */
-std::ostream& operator<<(std::ostream& os, const chain& chains) {
-  const std::vector<symbol>& symbols = chains.getChain();
+std::ostream& operator<<(std::ostream& os, const Chain& chains) {
+  const std::vector<Symbol>& symbols = chains.getChain();
   for (size_t i = 0; i < symbols.size(); ++i) {
     os << symbols[i];
   }
