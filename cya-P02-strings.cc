@@ -65,12 +65,12 @@ int main(int argc, char* argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  std::string linea;
+  std::string line;
 
-  while(std::getline(input, linea)) {
+  while(std::getline(input, line)) {
     long unsigned int iteration_counter {0};
     int space_counter {0};
-    for (char chr : linea) {
+    for (char chr : line) {
       if (chr == ' ') {
         ++space_counter;
       }
@@ -83,31 +83,31 @@ int main(int argc, char* argv[]) {
       continue;
     }
     //Checks for inexistant space
-    long unsigned int position = linea.find(' ');
+    long unsigned int position = line.find(' ');
 
-    if (position >= linea.size()) {
-      std::cerr << "Fatal error "<< space_counter + 1 <<": Alphabet cannot be empty. Try 'cya-P02-strings --help' for further information" << std::endl;
+    if (position >= line.size()) {
+      std::cerr << "Fatal error "<< iteration_counter + 1 <<": Alphabet cannot be empty. Try 'cya-P02-strings --help' for further information" << std::endl;
       ++iteration_counter;
       continue;;
     }
 
     //Substraction of the chain and the alphabet
-    std::string cadena = linea.substr(0, position);
-    std::string alfabeto = linea.substr(position + 1);
+    std::string chain = line.substr(0, position);
+    std::string alphabet = line.substr(position + 1);
 
     //Checks if alphabet is valid for the given chain, and/or viceversa
     bool correct = true;
-    for (long unsigned int i {0}; i < cadena.size(); ++i) {
+    for (long unsigned int i {0}; i < chain.size(); ++i) {
       bool found = false;
-      for (long unsigned int j {0}; j < alfabeto.size(); ++j) {
-        if (cadena[i] == alfabeto[j] || cadena[i] == '&') {
+      for (long unsigned int j {0}; j < alphabet.size(); ++j) {
+        if (chain[i] == alphabet[j] || chain[i] == '&') {
           found = true;
           break;
         }
       }
       if (!found) {
         correct = false;
-        std::cerr << "Incorrect input format in line "<< space_counter + 1 <<": Chain isn't part of given alphabet" << std::endl;
+        std::cerr << "Incorrect input format in line "<< iteration_counter + 1 <<": Chain isn't part of given alphabet" << std::endl;
         break;
       }
     }
@@ -118,12 +118,12 @@ int main(int argc, char* argv[]) {
     }
 
     Chain final_chain;
-    for (const char& character : cadena) {
+    for (const char& character : chain) {
       final_chain.AddBack(Symbol(character));
     }
 
     Alphabet final_alphabet;
-    for (const char& character : alfabeto) {
+    for (const char& character : alphabet) {
       final_alphabet.AddSymbol(Symbol(character));
     }
 
@@ -132,7 +132,7 @@ int main(int argc, char* argv[]) {
         if (!final_alphabet.Empty()) {
           output << final_alphabet << "\n";
         } else {
-          std::cerr << "Fatal error "<< space_counter + 1 <<": Alphabet cannot be empty. Try 'cya-P02-strings --help' for further information" << std::endl;
+          std::cerr << "Fatal error "<< iteration_counter + 1 <<": Alphabet cannot be empty. Try 'cya-P02-strings --help' for further information" << std::endl;
         }
         break;
       case 2:
